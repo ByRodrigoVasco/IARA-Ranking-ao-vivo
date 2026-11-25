@@ -1,49 +1,34 @@
 # IARA · Ranking ao vivo
 
 Página que mostra o ranking solo e o de duplas do jogo IARA, atualizada a cada 5 segundos.
-Node puro, sem dependências. Feita para o **Google Cloud Run**.
+Sem framework, sem dependências e sem etapa de build. Feita para a **Vercel**.
 
-## Publicar no Cloud Run
+## Publicar na Vercel
 
-Precisa de um projeto no Google Cloud com faturamento ativado e do
-[gcloud CLI](https://cloud.google.com/sdk/docs/install) (ou use o Cloud Shell do console).
+1. Em <https://vercel.com/new>, importe este repositório (plano Hobby, para uso não comercial).
+2. Em **Framework Preset**, escolha **Other**. Não preencha comando de build nem pasta de saída.
+3. Em **Environment Variables**, crie:
 
-Uma vez só, entre na conta, escolha o projeto e ligue os serviços:
+   | Nome | Valor |
+   |---|---|
+   | `NUVEM_URL` | Project URL do Supabase |
+   | `NUVEM_CHAVE` | chave **publishable** (`sb_publishable_...`), nunca a secreta |
 
-```powershell
-gcloud auth login
-gcloud config set project ID-DO-PROJETO
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
-```
+4. Clique em **Deploy**. Se criar ou mudar uma variável depois, faça um **Redeploy**.
 
-Crie um arquivo `nuvem.local` nesta pasta (ignorado pelo git e pelo envio ao Google Cloud):
-
-```
-NUVEM_URL=https://<id-do-projeto>.supabase.co
-NUVEM_CHAVE=sb_publishable_...
-```
-
-Use a chave **publishable**, nunca a secreta. Depois publique, na pasta do repositório (PowerShell):
-
-```powershell
-$vars = (Get-Content nuvem.local | Where-Object { $_ -match '^NUVEM_' }) -join ','
-gcloud run deploy iara-ranking --source . --region southamerica-east1 --allow-unauthenticated --max-instances 2 --set-env-vars $vars
-```
-
-No fim, o comando mostra o endereço público da página. Para publicar uma mudança, rode os dois
-comandos de novo.
-
-- `--allow-unauthenticated`: qualquer pessoa com o link vê a página.
-- `--max-instances 2`: limita o crescimento, e o custo, se muita gente acessar.
-- A chave fica só no servidor: o navegador de quem visita não a recebe.
+Cada envio à `main` publica uma versão nova. A chave fica só no servidor (`api/ranking.js`): o
+navegador de quem visita não a recebe.
 
 ## Ver no computador
 
-Com dados inventados, sem consultar o banco, e depois com o ranking de verdade:
+Com dados inventados, sem consultar o banco:
 
 ```powershell
 node server.js --exemplo
 ```
+
+Com o ranking de verdade, crie um arquivo `nuvem.local` nesta pasta (ignorado pelo git) com as
+linhas `NUVEM_URL=` e `NUVEM_CHAVE=`:
 
 ```powershell
 node --env-file=nuvem.local server.js

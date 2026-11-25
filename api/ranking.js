@@ -1,4 +1,4 @@
-// Lê os dois rankings no Supabase e devolve para a página.
+// Função da Vercel: lê os dois rankings no Supabase e devolve para a página.
 // A URL e a chave ficam nas variáveis de ambiente (NUVEM_URL e NUVEM_CHAVE): não vão para o
 // repositório nem para o navegador de quem visita.
 
@@ -32,20 +32,21 @@ async function lerRanking(url, chave, tipo) {
 module.exports = async function handler(req, res) {
   const url = (process.env.NUVEM_URL || "").replace(/\/+$/, "");
   const chave = process.env.NUVEM_CHAVE || "";
-  const responder = (status, corpo) => {
+  const responder = (status, corpo, cache = "no-store") => {
     res.statusCode = status;
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Cache-Control", cache);
     res.end(JSON.stringify(corpo));
   };
 
   if (!url || !chave || chave.startsWith("sb_secret_")) {
-    console.error("Configure as variáveis NUVEM_URL e NUVEM_CHAVE (chave publishable) no serviço.");
+    console.error("Configure NUVEM_URL e NUVEM_CHAVE (chave publishable) no projeto da Vercel.");
     return responder(500, { erro: "configuracao" });
   }
   try {
     const [solo, dupla] = await lerOsDois(url, chave);
-    return responder(200, { solo, dupla });
+    // A rede da Vercel também guarda a resposta por 4 s
+    return responder(200, { solo, dupla }, "public, max-age=0, s-maxage=4");
   } catch (erro) {
     console.error(erro.message);
     return responder(502, { erro: "nuvem" });

@@ -1,4 +1,4 @@
-// Servidor da página, no Cloud Run e neste computador:
+// Servidor para ver a página neste computador (na Vercel ele não é usado):
 //   node --env-file=<arquivo com NUVEM_URL e NUVEM_CHAVE> server.js
 // Com --exemplo, usa nomes inventados e não consulta o banco.
 const http = require("node:http");
@@ -7,8 +7,6 @@ const path = require("node:path");
 const ranking = require("./api/ranking.js");
 
 const porta = Number(process.env.PORT) || 3000;
-// No Cloud Run (K_SERVICE) o servidor atende de fora; no computador, só ele mesmo
-const endereco = process.env.K_SERVICE ? "0.0.0.0" : "127.0.0.1";
 const exemplo = process.argv.includes("--exemplo");
 const tipos = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".png": "image/png", ".webp": "image/webp", ".ttf": "font/ttf" };
 const publicos = /^\/(index\.html|estilo\.css|ranking\.js|assets\/[\w/-]+\.(png|webp|ttf))$/;
@@ -37,4 +35,4 @@ http.createServer((req, res) => {
     res.setHeader("Content-Type", tipos[path.extname(arquivo)]);
     res.end(dados);
   });
-}).listen(porta, endereco, () => console.log(`Ranking na porta ${porta}${exemplo ? " (dados de exemplo)" : ""}`));
+}).listen(porta, "127.0.0.1", () => console.log(`Ranking na porta ${porta}${exemplo ? " (dados de exemplo)" : ""}`));

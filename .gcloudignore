@@ -1,8 +1,0 @@
-# Nao enviar ao Google Cloud
-.git/
-.gitignore
-.gcloudignore
-.env
-.env.*
-*.local
-node_modules/
