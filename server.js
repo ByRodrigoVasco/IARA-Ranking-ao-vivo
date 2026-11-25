@@ -5,6 +5,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const ranking = require("./api/ranking.js");
+const qr = require("./api/qr.js");
 
 const porta = Number(process.env.PORT) || 3000;
 const exemplo = process.argv.includes("--exemplo");
@@ -20,6 +21,7 @@ const linhas = (nomes, dupla) => nomes.map((nome, i) => ({
 http.createServer((req, res) => {
   const caminho = new URL(req.url, "http://localhost").pathname;
 
+  if (caminho === "/api/qr") return qr(req, res);
   if (caminho === "/api/ranking") {
     if (!exemplo) return ranking(req, res);
     res.setHeader("Content-Type", "application/json");

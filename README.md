@@ -41,6 +41,7 @@ Abra <http://localhost:3000>.
 - Abas **Solo** e **Duplas**; `#dupla` no fim do endereço abre direto nas duplas.
 - Na dupla aparecem os personagens do J1 e do J2. O jogo manda os dois no mesmo número,
   J1 + 16 × (J2 + 1); uma partida enviada por uma versão anterior mostra "?" no J2.
+- O QR code (`api/qr.js`) leva ao endereço de produção do próprio site. No celular ele não aparece.
 - `?top=20` no endereço mostra mais linhas (padrão 10, máximo 50).
 - As imagens e a fonte (VT323) vieram do jogo.
 

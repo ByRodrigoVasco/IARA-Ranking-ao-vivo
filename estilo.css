@@ -105,7 +105,17 @@ tr.novo { animation: destaque 4s ease-out; }
 
 footer { text-align: center; color: var(--apagado); margin-top: 1em; font-size: 0.9em; }
 
+/* QR code para abrir o ranking no celular: no canto das telas largas, embaixo da tabela nas outras */
+.celular { width: 9.5em; margin: 1.2em auto 0; text-align: center; color: var(--texto); }
+.celular img { display: block; width: 100%; height: auto; border: 2px solid var(--borda); image-rendering: pixelated; }
+.celular p { margin-top: 0.4em; }
+
+@media (min-width: 1250px) and (min-aspect-ratio: 3/2) {
+  .celular { position: fixed; right: 1em; bottom: 1em; margin: 0; width: 8.5em; }
+}
+
 @media (max-width: 520px) {
+  .celular { display: none; } /* Quem já está no celular não precisa dele */
   body { font-size: 17px; padding: 0.6em; }
   header { padding-top: 1.6em; }
   th { width: 3.4em; }
