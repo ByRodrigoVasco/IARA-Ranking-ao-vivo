@@ -67,7 +67,7 @@ function desenhar(tipo, linhas) {
   const antes = vistos[tipo];
   vistos[tipo] = new Map(linhas.map((l) => [l.nome.toLowerCase(), l.pontos]));
 
-  if (linhas.length === 0) return aviso(corpo, "Ninguém jogou ainda. Seja o primeiro!");
+  if (linhas.length === 0) return aviso(corpo, "Seja o primeiro!");
 
   corpo.replaceChildren(...linhas.slice(0, TOP).map((l, i) => {
     const tr = document.createElement("tr");
