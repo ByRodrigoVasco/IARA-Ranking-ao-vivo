@@ -1,0 +1,5 @@
+.env
+.env.*
+*.local
+.gcloud/
+node_modules/

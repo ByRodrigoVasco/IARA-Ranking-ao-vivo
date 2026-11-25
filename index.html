@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IARA · Ranking ao vivo</title>
+  <link rel="icon" href="assets/icone.png">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <div id="status" class="status" role="status" hidden>
+    <span class="bolinha"></span><span id="status-texto"></span>
+  </div>
+
+  <header>
+    <img class="logo" src="assets/logo.webp" alt="IARA">
+    <h1>Ranking ao vivo</h1>
+    <p class="sub">Modo Sobrevivência: dez minutos de expediente.</p>
+  </header>
+
+  <nav class="abas" role="tablist" aria-label="Tipo de ranking">
+    <button type="button" role="tab" id="aba-solo" aria-controls="painel-solo" data-aba="solo">Solo</button>
+    <button type="button" role="tab" id="aba-dupla" aria-controls="painel-dupla" data-aba="dupla">Duplas</button>
+  </nav>
+
+  <main>
+    <section id="painel-solo" role="tabpanel" aria-labelledby="aba-solo">
+      <table>
+        <thead><tr><th class="pos">#</th><th class="nome">Nome</th><th class="pontos">Pontos</th><th>Tempo</th><th>Abates</th></tr></thead>
+        <tbody id="solo"><tr><td class="aviso" colspan="5">Carregando...</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="painel-dupla" role="tabpanel" aria-labelledby="aba-dupla" hidden>
+      <table>
+        <thead><tr><th class="pos">#</th><th class="nome">Dupla</th><th class="pontos">Pontos</th><th>Tempo</th><th>Abates</th></tr></thead>
+        <tbody id="dupla"><tr><td class="aviso" colspan="5">Carregando...</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>Pontos: abate 10 · segundo 5 · chefe 500 · vitória 2000. Tempo em verde: desligou a IARA.</footer>
+
+  <script src="ranking.js"></script>
+</body>
+</html>

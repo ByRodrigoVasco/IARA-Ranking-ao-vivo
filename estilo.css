@@ -1,0 +1,120 @@
+/* Cores e fonte do jogo (Modo Sobrevivência) */
+@font-face {
+  font-family: "VT323";
+  src: url("assets/VT323-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --fundo: #08040c;
+  --painel: rgba(10, 4, 16, 0.88);
+  --borda: #781e2c;
+  --vermelho: #e62832;
+  --amarelo: #ffd650;
+  --texto: #f0eaf4;
+  --apagado: #a89cb0;
+  --verde: #78e6a0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(6, 2, 10, 0.72), rgba(6, 2, 10, 0.92)),
+    url("assets/fundo.webp") center / cover fixed,
+    var(--fundo);
+  color: var(--texto);
+  font-family: "VT323", monospace;
+  font-size: clamp(18px, 1.35vw, 34px);
+  line-height: 1.1;
+  padding: 1em;
+}
+
+header { text-align: center; margin-bottom: 1em; }
+.logo { width: min(11em, 70vw); height: auto; }
+h1 { color: var(--vermelho); font-size: 2.6em; font-weight: normal; text-transform: uppercase; text-shadow: 0 0 0.35em rgba(230, 40, 50, 0.55); }
+.sub { color: var(--apagado); }
+
+main, .abas { max-width: 46em; margin: 0 auto; }
+
+.abas { display: flex; gap: 0.4em; }
+.abas button {
+  flex: 1;
+  font-family: inherit;
+  font-size: 1.6em;
+  text-transform: uppercase;
+  color: var(--apagado);
+  background: rgba(10, 4, 16, 0.7);
+  border: 2px solid var(--borda);
+  border-bottom: 0;
+  padding: 0.2em;
+  cursor: pointer;
+}
+.abas button[aria-selected="true"] { color: var(--amarelo); background: #461220; }
+.abas button:hover { color: var(--texto); }
+.abas button:focus-visible { outline: 3px solid var(--texto); outline-offset: -5px; }
+
+section { background: var(--painel); border: 2px solid var(--borda); padding: 0.7em; min-width: 0; }
+
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { padding: 0.22em 0.25em; text-align: right; white-space: nowrap; }
+th { color: var(--apagado); font-weight: normal; text-transform: uppercase; }
+th { width: 4.2em; }
+th.pos { width: 2.2em; text-align: left; }
+th.pontos { color: var(--amarelo); width: 4.8em; }
+th.nome { width: auto; text-align: left; }
+td.pos { text-align: left; }
+td.nome { text-align: left; overflow: hidden; text-overflow: ellipsis; }
+td.nome img { width: 1.8em; height: 1.8em; image-rendering: pixelated; }
+.jogador { display: inline-block; vertical-align: middle; margin-right: 0.35em; text-align: center; }
+.jogador img { display: block; }
+/* Dupla: J1 e J2 nas cores dos marcadores do jogo */
+.jogador small { display: block; font-size: 0.75em; line-height: 1; }
+.jogador.j1 small { color: #ff5a64; }
+.jogador.j2 small { color: #5aaaff; }
+.sem-foto { display: flex; width: 1.8em; height: 1.8em; align-items: center; justify-content: center; color: var(--apagado); }
+.apelido { vertical-align: middle; }
+tbody tr { color: #c8bece; }
+tbody tr:nth-child(-n + 3) { color: #ebe1eb; }
+tbody tr:first-child { color: var(--amarelo); background: rgba(255, 214, 80, 0.08); }
+td.venceu { color: var(--verde); }
+td.aviso { text-align: center; color: var(--apagado); white-space: normal; padding: 1.5em 0.5em; }
+
+/* Entrada nova ou recorde melhorado */
+tr.novo { animation: destaque 4s ease-out; }
+@keyframes destaque {
+  0%, 35% { background: #5a1422; color: #ff7882; }
+}
+
+.status {
+  position: fixed;
+  top: 0.7em;
+  right: 0.7em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 0.25em 0.7em;
+  border-radius: 1em;
+  z-index: 1;
+}
+.status[hidden] { display: none; }
+.bolinha { width: 0.65em; height: 0.65em; border-radius: 50%; background: #eb3c3c; }
+.status.online .bolinha { background: #3cd264; box-shadow: 0 0 0.5em #3cd264; }
+
+footer { text-align: center; color: var(--apagado); margin-top: 1em; font-size: 0.9em; }
+
+@media (max-width: 520px) {
+  body { font-size: 17px; padding: 0.6em; }
+  header { padding-top: 1.6em; }
+  th { width: 3.4em; }
+  th.pos { width: 1.7em; }
+  th.pontos { width: 4em; }
+  /* Na dupla o nome vai para baixo dos dois personagens */
+  #dupla .apelido { display: block; overflow: hidden; text-overflow: ellipsis; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  tr.novo { animation: none; }
+}
