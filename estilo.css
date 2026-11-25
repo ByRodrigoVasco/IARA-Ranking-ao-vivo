@@ -66,7 +66,7 @@ th.pontos { color: var(--amarelo); width: 4.8em; }
 th.nome { width: auto; text-align: left; }
 td.pos { text-align: left; }
 td.nome { text-align: left; overflow: hidden; text-overflow: ellipsis; }
-td.nome img { width: 1.8em; height: 1.8em; image-rendering: pixelated; }
+td.nome img { width: 1.8em; height: 1.8em; } /* Arte reduzida com suavização, como no jogo */
 .jogador { display: inline-block; vertical-align: middle; margin-right: 0.35em; text-align: center; }
 .jogador img { display: block; }
 /* Dupla: J1 e J2 nas cores dos marcadores do jogo */
